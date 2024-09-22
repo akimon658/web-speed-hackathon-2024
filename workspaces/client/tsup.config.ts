@@ -61,7 +61,6 @@ export default defineConfig(async (): Promise<Options[]> => {
       sourcemap: true,
       splitting: false,
       target: ['chrome129'],
-      treeshake: false,
     },
   ];
 });
