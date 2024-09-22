@@ -2,6 +2,11 @@
 import { jitter } from './jitter';
 import { transformJpegXLToBmp } from './transformJpegXLToBmp';
 import { zstdFetch as fetch } from './zstdFetch';
+import PQueue from 'p-queue';
+
+const queue = new PQueue({
+  concurrency: 30,
+})
 
 self.addEventListener('install', (ev: ExtendableEvent) => {
   ev.waitUntil(self.skipWaiting());
@@ -12,9 +17,9 @@ self.addEventListener('activate', (ev: ExtendableEvent) => {
 });
 
 self.addEventListener('fetch', (ev: FetchEvent) => {
-  onFetch(ev.request), {
+  ev.respondWith(queue.add(() => onFetch(ev.request), {
     throwOnTimeout: true,
-  }
+  }));
 });
 
 async function onFetch(request: Request): Promise<Response> {
