@@ -12,6 +12,7 @@ const _Wrapper = styled.div`
 const _Image = styled.img`
   display: inline-block;
   width: 100%;
+  height: auto;
 `;
 
 export const HeroImage: React.FC = () => {
@@ -89,29 +90,6 @@ void main() {
       });
     });
   }, [imageRef, updateImage]);
-
-  useEffect(() => {
-    const resize = () => {
-      const image = imageRef.current;
-      if (image == null) {
-        return;
-      }
-
-      const width = image.clientWidth;
-      const height = (image.clientWidth / 16) * 9;
-      updateImage({
-        height,
-        src: canvasRef.current.toDataURL(),
-        width,
-      });
-    };
-
-    window.addEventListener('resize', resize);
-
-    return () => {
-      window.removeEventListener('resize', resize);
-    };
-  }, [updateImage]);
 
   return (
     <_Wrapper>
