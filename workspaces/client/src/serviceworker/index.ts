@@ -5,7 +5,7 @@ import { zstdFetch as fetch } from './zstdFetch';
 import PQueue from 'p-queue';
 
 const queue = new PQueue({
-  concurrency: 30,
+  concurrency: 15,
 })
 
 self.addEventListener('install', (ev: ExtendableEvent) => {
