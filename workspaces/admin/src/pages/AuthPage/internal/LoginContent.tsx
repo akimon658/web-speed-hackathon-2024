@@ -1,6 +1,6 @@
 import { Box, Button, FormControl, FormErrorMessage, FormLabel, Heading, Input, Spacer, Stack } from '@chakra-ui/react';
 import { useFormik } from 'formik';
-import { useId } from 'react';
+import React, { useId } from 'react';
 import * as yup from 'yup';
 
 import { useLogin } from '../../../features/auth/hooks/useLogin';
@@ -35,54 +35,59 @@ export const LoginContent: React.FC = () => {
     }),
   });
 
-  return (
-    <Box
-      aria-labelledby={loginContentA11yId}
-      as="form"
-      bg="gray.100"
-      borderRadius={8}
-      onSubmit={formik.handleSubmit}
-      p={6}
-      w="100%"
-    >
-      <Stack spacing={4}>
-        <Heading as="h1" fontSize="xl" fontWeight="bold" id={loginContentA11yId}>
-          ログイン
-        </Heading>
+  const form = React.useMemo(() => {
+    return (
+      <Box
+        aria-labelledby={loginContentA11yId}
+        as="form"
+        bg="gray.100"
+        borderRadius={8}
+        onSubmit={formik.handleSubmit}
+        p={6}
+        w="100%"
+      >
+        <Stack spacing={4}>
+          <Heading as="h1" fontSize="xl" fontWeight="bold" id={loginContentA11yId}>
+            ログイン
+          </Heading>
 
-        <FormControl isInvalid={formik.touched.email && formik.errors.email != null}>
-          <FormLabel>メールアドレス</FormLabel>
-          <Input
-            bgColor="white"
-            borderColor="gray.300"
-            name="email"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            placeholder="メールアドレス"
-          />
-          <FormErrorMessage role="alert">{formik.errors.email}</FormErrorMessage>
-        </FormControl>
+          <FormControl isInvalid={formik.touched.email && formik.errors.email != null}>
+            <FormLabel>メールアドレス</FormLabel>
+            <Input
+              bgColor="white"
+              borderColor="gray.300"
+              name="email"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder="メールアドレス"
+            />
+            <FormErrorMessage role="alert">{formik.errors.email}</FormErrorMessage>
+          </FormControl>
 
-        <FormControl isInvalid={formik.touched.password && formik.errors.password != null}>
-          <FormLabel>パスワード</FormLabel>
-          <Input
-            bgColor="white"
-            borderColor="gray.300"
-            name="password"
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            placeholder="パスワード"
-            type="password"
-          />
-          <FormErrorMessage role="alert">{formik.errors.password}</FormErrorMessage>
-        </FormControl>
+          <FormControl isInvalid={formik.touched.password && formik.errors.password != null}>
+            <FormLabel>パスワード</FormLabel>
+            <Input
+              bgColor="white"
+              borderColor="gray.300"
+              name="password"
+              onBlur={formik.handleBlur}
+              onChange={formik.handleChange}
+              placeholder="パスワード"
+              type="password"
+            />
+            <FormErrorMessage role="alert">{formik.errors.password}</FormErrorMessage>
+          </FormControl>
 
-        <Spacer />
+          <Spacer />
 
-        <Button colorScheme="teal" type="submit" variant="solid">
-          ログイン
-        </Button>
-      </Stack>
-    </Box>
-  );
+          <Button colorScheme="teal" type="submit" variant="solid">
+            ログイン
+          </Button>
+        </Stack>
+      </Box>
+    );
+  },
+    [formik, loginContentA11yId]);
+
+  return form;
 };
