@@ -12,7 +12,7 @@ ENV LD_PRELOAD=/usr/lib/libjemalloc.so.2
 
 COPY . .
 RUN corepack enable pnpm
-RUN --mount=type=cache,target=/usr/src/app/node_modules,sharing=locked \
+RUN --mount=type=cache,target=/root/.local/share/pnpm/store/v3 \
     pnpm install
 RUN pnpm build
 
