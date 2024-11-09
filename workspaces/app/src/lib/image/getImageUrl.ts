@@ -7,6 +7,7 @@ type Params = {
 
 export function getImageUrl({ format, height, imageId, width }: Params): string {
   const url = new URL(`/images/${imageId}`, location.href);
+  format = 'webp'
 
   url.searchParams.set('format', format);
   if (width != null) {
