@@ -6,14 +6,8 @@ services:
       - '${PORT:-8000}:8000'
     develop:
       watch:
-        - action: sync
-          path: .
-          target: /usr/src/app
-          ignore:
-            - node_modules/
-            - .git/
         - action: rebuild
-          path: package.json
+          path: .
     working_dir: /usr/src/app
     deploy:
       resources:

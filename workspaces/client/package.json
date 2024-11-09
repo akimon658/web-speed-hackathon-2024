@@ -2,11 +2,12 @@
   "name": "@wsh-2024/client",
   "private": true,
   "scripts": {
-    "build": "pnpm run build:clean && pnpm run build:tsup && pnpm run build:copy",
+    "build": "pnpm run build:clean && pnpm run build:vite && pnpm run build:copy",
     "build:clean": "rm -rf ./dist",
-    "build:copy": "cp -r ./assets ./dist/assets",
-    "build:tsup": "tsup"
+    "build:copy": "cp -r ./assets ./dist",
+    "build:vite": "vite build"
   },
+  "type": "module",
   "dependencies": {
     "@jsquash/jxl": "1.1.0",
     "@webcomponents/webcomponentsjs": "2.8.0",
@@ -36,8 +37,10 @@
     "@types/react": "18.2.0",
     "@types/react-dom": "18.2.1",
     "@types/serviceworker": "0.0.83",
-    "esbuild-plugin-polyfill-node": "0.3.0",
+    "@vitejs/plugin-react": "4.3.3",
     "pkg-dir": "5.0.0",
-    "tsup": "8.0.1"
+    "vite": "5.4.10",
+    "vite-plugin-node-polyfills": "0.22.0",
+    "vite-plugin-wasm": "3.3.0"
   }
 }
