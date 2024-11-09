@@ -11,6 +11,7 @@ import { apiApp } from './api';
 import { imageApp } from './image';
 import { ssrApp } from './ssr';
 import { staticApp } from './static';
+import { constantApp } from './constant';
 
 const app = new Hono();
 
@@ -34,6 +35,7 @@ app.route('/', staticApp);
 app.route('/', imageApp);
 app.route('/', apiApp);
 app.route('/', adminApp);
+app.route('/', constantApp);
 app.route('/', ssrApp);
 
 app.onError((cause) => {
