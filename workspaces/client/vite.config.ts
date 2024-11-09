@@ -6,6 +6,7 @@ import path from 'node:path';
 import wasm from 'vite-plugin-wasm';
 import react from '@vitejs/plugin-react'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
+import { visualizer } from 'rollup-plugin-visualizer'
 
 export default defineConfig(async () => {
   const PACKAGE_DIR = (await findPackageDir(process.cwd()))!
@@ -28,7 +29,10 @@ export default defineConfig(async () => {
         },
         output: {
           entryFileNames: '[name].js',
-        }
+        },
+        plugins: [
+          visualizer()
+        ]
       },
       target: 'chrome130'
     },
