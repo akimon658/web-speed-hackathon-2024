@@ -44,8 +44,8 @@ const _AvatarWrapper = styled.div`
 `;
 
 type Props = {
-  book: GetBookResponse;
-};
+  book: Omit<GetBookResponse, 'episodes'>
+}
 
 const FeatureCard: React.FC<Props> = ({ book }) => {
   const imageUrl = useImage({ height: 96, imageId: book.image.id, width: 96 });

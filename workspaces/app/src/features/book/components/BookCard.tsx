@@ -33,7 +33,7 @@ const _AvatarWrapper = styled.div`
 `;
 
 type Props = {
-  book: GetBookResponse;
+  book: Omit<GetBookResponse, 'episodes'>;
 };
 
 const BookCard: React.FC<Props> = ({ book }) => {
