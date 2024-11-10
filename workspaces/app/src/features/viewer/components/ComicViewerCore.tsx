@@ -1,11 +1,9 @@
-import { Suspense, useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { useInterval, useUpdate } from 'react-use';
 import styled from 'styled-components';
 
 import { addUnitIfNeeded } from '../../../lib/css/addUnitIfNeeded';
 import { useEpisode } from '../../episode/hooks/useEpisode';
-
-import { ComicViewerPage } from './ComicViewerPage';
 
 const IMAGE_WIDTH = 1075;
 const IMAGE_HEIGHT = 1518;
@@ -207,6 +205,7 @@ const ComicViewerCore: React.FC<Props> = ({ episodeId }) => {
     <_Container ref={containerRef}>
       <_Wrapper ref={scrollViewRef} $paddingInline={viewerPaddingInline} $pageWidth={pageWidth}>
         {episode.pages.map((page) => {
+          const ComicViewerPage = React.lazy(() => import('./ComicViewerPage').then(module => ({ default: module.ComicViewerPage })));
           return <ComicViewerPage key={page.id} pageImageId={page.image.id} />;
         })}
       </_Wrapper>

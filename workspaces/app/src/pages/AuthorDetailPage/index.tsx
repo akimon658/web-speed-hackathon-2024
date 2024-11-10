@@ -1,11 +1,10 @@
-import { Suspense, useId } from 'react';
+import React, { Suspense, useId } from 'react';
 import { useParams } from 'react-router-dom';
 import type { RouteParams } from 'regexparam';
 import { styled } from 'styled-components';
 import invariant from 'tiny-invariant';
 
 import { useAuthor } from '../../features/author/hooks/useAuthor';
-import { BookListItem } from '../../features/book/components/BookListItem';
 import { Box } from '../../foundation/components/Box';
 import { Flex } from '../../foundation/components/Flex';
 import { Image } from '../../foundation/components/Image';
@@ -39,6 +38,8 @@ const AuthorDetailPage: React.FC = () => {
 
   const imageUrl = useImage({ height: 128, imageId: author.image.id, width: 128 });
   const bookListA11yId = useId();
+
+  const BookListItem = React.lazy(() => import('../../features/book/components/BookListItem').then((module) => ({ default: module.BookListItem })));
 
   return (
     <Box height="100%" px={Space * 2}>

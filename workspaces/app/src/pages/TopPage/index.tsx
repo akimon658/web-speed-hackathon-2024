@@ -1,9 +1,6 @@
-import { Suspense, useId } from 'react';
+import React, { Suspense, useId } from 'react';
 
-import { BookCard } from '../../features/book/components/BookCard';
-import { FeatureCard } from '../../features/feature/components/FeatureCard';
 import { useFeatureList } from '../../features/feature/hooks/useFeatureList';
-import { RankingCard } from '../../features/ranking/components/RankingCard';
 import { useRankingList } from '../../features/ranking/hooks/useRankingList';
 import { useRelease } from '../../features/release/hooks/useRelease';
 import { Box } from '../../foundation/components/Box';
@@ -13,7 +10,10 @@ import { Text } from '../../foundation/components/Text';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
 import { getDayOfWeekStr } from '../../lib/date/getDayOfWeekStr';
 
-import { CoverSection } from './internal/CoverSection';
+const CoverSection = React.lazy(() => import('./internal/CoverSection').then((module) => ({ default: module.CoverSection })));
+const FeatureCard = React.lazy(() => import('../../features/feature/components/FeatureCard').then((module) => ({ default: module.FeatureCard })));
+const RankingCard = React.lazy(() => import('../../features/ranking/components/RankingCard').then((module) => ({ default: module.RankingCard })));
+const BookCard = React.lazy(() => import('../../features/book/components/BookCard').then((module) => ({ default: module.BookCard })));
 
 const TopPage: React.FC = () => {
   const todayStr = getDayOfWeekStr(new Date());

@@ -2,10 +2,6 @@ import { useRef } from 'react';
 import { useAsync } from 'react-use';
 import styled from 'styled-components';
 
-import { decrypt } from '@wsh-2024/image-encrypt/src/decrypt';
-
-import { getImageUrl } from '../../../lib/image/getImageUrl';
-
 const _Canvas = styled.canvas`
   height: 100%;
   width: auto;
@@ -21,6 +17,10 @@ export const ComicViewerPage = ({ pageImageId }: Props) => {
   const ref = useRef<HTMLCanvasElement>(null);
 
   useAsync(async () => {
+    const [{ decrypt }, { getImageUrl }] = await Promise.all([
+      import('@wsh-2024/image-encrypt/src/decrypt'),
+      import('../../../lib/image/getImageUrl')
+    ])
     const image = new Image();
     image.src = getImageUrl({
       format: 'jxl',

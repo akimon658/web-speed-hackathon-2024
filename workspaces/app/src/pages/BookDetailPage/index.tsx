@@ -1,5 +1,5 @@
 import { useAtom } from 'jotai/react';
-import { Suspense, useCallback } from 'react';
+import React, { Suspense, useCallback } from 'react';
 import { useParams } from 'react-router-dom';
 import type { RouteParams } from 'regexparam';
 import { styled } from 'styled-components';
@@ -7,7 +7,6 @@ import invariant from 'tiny-invariant';
 
 import { FavoriteBookAtomFamily } from '../../features/book/atoms/FavoriteBookAtomFamily';
 import { useBook } from '../../features/book/hooks/useBook';
-import { EpisodeListItem } from '../../features/episode/components/EpisodeListItem';
 import { Box } from '../../foundation/components/Box';
 import { Flex } from '../../foundation/components/Flex';
 import { Image } from '../../foundation/components/Image';
@@ -17,8 +16,6 @@ import { Spacer } from '../../foundation/components/Spacer';
 import { Text } from '../../foundation/components/Text';
 import { useImage } from '../../foundation/hooks/useImage';
 import { Color, Space, Typography } from '../../foundation/styles/variables';
-
-import { BottomNavigator } from './internal/BottomNavigator';
 
 const _HeadingWrapper = styled.section`
   display: grid;
@@ -60,6 +57,9 @@ const BookDetailPage: React.FC = () => {
   }, [toggleFavorite]);
 
   const latestEpisode = book.episodes?.find((episode) => episode.chapter === 1);
+
+  const BottomNavigator = React.lazy(() => import('./internal/BottomNavigator').then(({ BottomNavigator }) => ({ default: BottomNavigator })))
+  const EpisodeListItem = React.lazy(() => import('../../features/episode/components/EpisodeListItem').then(({ EpisodeListItem }) => ({ default: EpisodeListItem })))
 
   return (
     <Box height="100%" position="relative" px={Space * 2}>

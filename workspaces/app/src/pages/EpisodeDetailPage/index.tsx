@@ -1,16 +1,13 @@
-import { Suspense } from 'react';
+import React, { Suspense } from 'react';
 import { useParams } from 'react-router-dom';
 import type { RouteParams } from 'regexparam';
 import invariant from 'tiny-invariant';
 
 import { useBook } from '../../features/book/hooks/useBook';
-import { EpisodeListItem } from '../../features/episode/components/EpisodeListItem';
 import { Box } from '../../foundation/components/Box';
 import { Flex } from '../../foundation/components/Flex';
 import { Separator } from '../../foundation/components/Separator';
 import { Space } from '../../foundation/styles/variables';
-
-import { ComicViewer } from './internal/ComicViewer';
 
 const EpisodeDetailPage: React.FC = () => {
   const { bookId, episodeId } = useParams<RouteParams<'/books/:bookId/episodes/:episodeId'>>();
@@ -18,6 +15,9 @@ const EpisodeDetailPage: React.FC = () => {
   invariant(episodeId);
 
   const { data: book } = useBook({ params: { bookId } });
+
+  const ComicViewer = React.lazy(() => import('./internal/ComicViewer').then(({ ComicViewer }) => ({ default: ComicViewer })));
+  const EpisodeListItem = React.lazy(() => import('../../features/episode/components/EpisodeListItem').then(({ EpisodeListItem }) => ({ default: EpisodeListItem })));
 
   return (
     <Box>
