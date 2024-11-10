@@ -109,6 +109,14 @@ app.get(
     const reqImageSize = c.req.valid('query');
 
     const scale = Math.max((reqImageSize.width ?? 0) / image.width, (reqImageSize.height ?? 0) / image.height) || 1;
+    const imgName = `${reqImgId}_${scale}.${resImgFormat}`;
+    const imgPath = path.resolve(IMAGES_PATH, imgName);
+    // リサイズ済みの画像があればそれを返す
+    if (await fs.stat(imgPath).then(() => true).catch(() => false)) {
+      c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat]);
+      return c.body(createStreamBody(createReadStream(imgPath)));
+    }
+
     const manipulated = image.resize({
       height: Math.ceil(image.height * scale),
       preserveAspectRatio: true,
@@ -121,6 +129,9 @@ app.get(
       height: manipulated.height,
       width: manipulated.width,
     });
+
+    // リサイズした画像を保存する
+    await fs.writeFile(imgPath, resBinary);
 
     c.header('Content-Type', IMAGE_MIME_TYPE[resImgFormat]);
     return c.body(resBinary);
