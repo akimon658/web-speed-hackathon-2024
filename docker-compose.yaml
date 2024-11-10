@@ -5,7 +5,5 @@ services:
     ports:
       - '${PORT:-8000}:8000'
     volumes:
-      - type: bind
-        source: ./workspaces/server/dist/images/
-        target: /usr/src/app/workspaces/server/dist/images/
+      - ./workspaces/server/dist/images/:/usr/src/app/workspaces/server/dist/images/
     working_dir: /usr/src/app
