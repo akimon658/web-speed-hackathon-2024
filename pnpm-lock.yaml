@@ -123,9 +123,6 @@ importers:
       jotai:
         specifier: 2.7.0
         version: 2.7.0(@types/react@18.2.0)(react@18.2.0)
-      jquery:
-        specifier: 3.7.1
-        version: 3.7.1
       react:
         specifier: 18.2.0
         version: 18.2.0
