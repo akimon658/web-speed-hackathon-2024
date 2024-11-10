@@ -35,6 +35,18 @@ export const Footer: React.FC = () => {
   const updateDialogContent = useSetAtom(DialogContentAtom);
 
   const handleRequestToDialogOpen = async (endpoint: string, dialogA11yId: string, title: string) => {
+    updateDialogContent(
+      <_Content aria-labelledby={dialogA11yId} role="dialog">
+        <Text as="h2" color={Color.MONO_100} id={dialogA11yId} typography={Typography.NORMAL16}>
+          {title}
+        </Text>
+        <Spacer height={Space * 1} />
+        <Text as="p" color={Color.MONO_100} typography={Typography.NORMAL12}>
+          ロード中...
+        </Text>
+      </_Content>,
+    )
+
     const response = await fetch(endpoint);
     const { text } = await response.json();
 
